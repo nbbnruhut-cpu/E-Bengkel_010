@@ -2,64 +2,31 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Kendaraan; // Pastikan model di-import
 use Illuminate\Http\Request;
 
 class KendaraanController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    // Tampilkan seluruh antrean kendaraan (Read)
     public function index()
     {
-      $kendaraans = \App\Models\Kendaraan::all();
-    return view('kendaraan.index', compact('kendaraans'));  //
+        $kendaraans = Kendaraan::all(); 
+        return view('kendaraan.index', compact('kendaraans'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
+    // Tampilkan halaman form tambah (Create)
     public function create()
     {
-        //
+        return view('kendaraan.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
+    // Simpan data ke database (POST)
     public function store(Request $request)
     {
-        //
-    }
+        // Menyimpan data (Mass Assignment menggunakan $fillable di model)
+        Kendaraan::create($request->all());
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
+        // Redirect kembali ke halaman Daftar Servis sesuai instruksi
+        return redirect()->route('kendaraan.index');
     }
 }
